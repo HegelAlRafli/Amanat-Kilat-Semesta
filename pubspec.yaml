@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.17.0
   shimmer: ^2.0.0
   flutter_svg: ^2.0.8
+  url_launcher: ^6.2.1
 
 
 
