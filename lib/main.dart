@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/theme/app_style.dart';
 import 'core/theme/app_theme_data.dart';
-import 'features/tumbal.dart';
+import 'features/about_us/page/about_us.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const TumbalPage(),
+      child: const AboutUsPage(),
     );
   }
 }
