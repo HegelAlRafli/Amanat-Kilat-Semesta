@@ -27,12 +27,21 @@ class AppThemeData {
       brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: AppBarTheme(
-          elevation: 0,
-          titleTextStyle: TextStyle(
-              fontFamily: 'Poppins',
-              color: Colors.white,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500)),
+
+        toolbarHeight: 56.h,
+        elevation: 0,
+
+        titleTextStyle: TextStyle(
+            fontFamily: 'Poppins',
+            color: Colors.white,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(10.r),
+          ),
+        ),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
