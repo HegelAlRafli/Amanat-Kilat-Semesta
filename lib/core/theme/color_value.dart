@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorValue {
   static const Color primaryColor = Color(0XFFED1B24);
-  static const Color backgroundColor = Color(0XFFED1B24);
+  static const Color backgroundColor = Color(0XFFF9F9F9);
   static const Color greyColor = Color(0XFF9B9B9B);
   static const Color secondaryGreyColor = Color(0XFF737373);
   static const Color borderColor = Color(0XFFECEEF2);

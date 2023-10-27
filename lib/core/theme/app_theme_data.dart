@@ -27,10 +27,8 @@ class AppThemeData {
       brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: AppBarTheme(
-
         toolbarHeight: 56.h,
         elevation: 0,
-
         titleTextStyle: TextStyle(
             fontFamily: 'Poppins',
             color: Colors.white,
@@ -42,8 +40,11 @@ class AppThemeData {
           ),
         ),
       ),
+
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          disabledBackgroundColor: ColorValue.primaryColor.withOpacity(0.4),
+          disabledForegroundColor: Colors.white,
           foregroundColor: Colors.white,
           backgroundColor: ColorValue.primaryColor,
           minimumSize: Size(double.infinity, 50.h),
