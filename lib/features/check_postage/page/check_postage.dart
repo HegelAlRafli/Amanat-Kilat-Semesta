@@ -47,7 +47,7 @@ class _CheckPostagePageState extends State<CheckPostagePage> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-        appBar: customAppbarWidget('Cek Ongkir'),
+        appBar: customAppbarWidget(context, 'Cek Ongkir'),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: Column(

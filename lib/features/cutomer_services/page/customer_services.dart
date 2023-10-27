@@ -16,7 +16,7 @@ class _CustomerServicesPagesState extends State<CustomerServicesPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbarWidget('Customer Services'),
+      appBar: customAppbarWidget(context, 'Customer Services'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.w),
         child: Column(
