@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/theme/color_value.dart';
 import '../../../core/widgets/custom_appbar/custom_appbar_widget.dart';
 import '../../about_us/page/about_us.dart';
+import '../../check_location/page/check_location.dart';
 import '../../check_postage/page/check_postage.dart';
 import '../../cutomer_services/page/customer_services.dart';
 import '../widgets/box_widget.dart';
@@ -47,10 +48,10 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 32.h),
             const SearchWidget(),
             SizedBox(height: 24.h),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const BoxWidget(
+                BoxWidget(
                   icon: "assets/icons/price_tag.svg",
                   title: "Cek Ongkir",
                   route: CheckPostagePage(),
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 BoxWidget(
                   icon: "assets/icons/location.svg",
                   title: "Cek Lokasi",
-                  route: Container(),
+                  route: CheckLocationPage(),
                 ),
               ],
             ),
