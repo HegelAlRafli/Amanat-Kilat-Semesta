@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/theme/color_value.dart';
 
-class TablePostageWidget extends StatelessWidget {
-  const TablePostageWidget({super.key});
+class TableLocationWidget extends StatelessWidget {
+  const TableLocationWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class TablePostageWidget extends StatelessWidget {
         child: DataTable(
           showCheckboxColumn: false,
           horizontalMargin: 16.w,
+          columnSpacing: 45.w,
           headingRowHeight: 42.w,
-          columnSpacing: 1.w,
           dataRowMaxHeight: double.infinity,
           dataRowMinHeight: 40.h,
           headingRowColor: MaterialStateColor.resolveWith((states) => ColorValue.primaryColor),
@@ -32,29 +32,13 @@ class TablePostageWidget extends StatelessWidget {
           border: TableBorder(horizontalInside: BorderSide(width: 1.w, color: Colors.white)),
 
           // Table Headers
-          columns: [
-            const DataColumn(
-                label: Text('Kategori')),
-            DataColumn(
-                label: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Tarif',
-                    style: textTheme.bodyLarge?.copyWith(color: Colors.white),
-                  ),
-                  TextSpan(
-                    text: '(\/Kg)',
-                    style: textTheme.bodyLarge?.copyWith(color: Colors.white, fontSize: 8.sp),
-                  ),
-                ],
-              ),
-            )),
-            const DataColumn(label: Text('Estimasi')),
+          columns: const [
+            DataColumn(label: Text('Kota')),
+            DataColumn(label: Text('Alamat')),
           ],
 
           // Data Column Table
-          rows: List.generate(14, (index) {
+          rows: List.generate(3, (index) {
             Color rowColor = index.isEven ? Colors.white : ColorValue.backgroundColor;
             return DataRow(
               color: MaterialStateColor.resolveWith(
@@ -66,20 +50,13 @@ class TablePostageWidget extends StatelessWidget {
                 },
               ),
               cells: [
-                DataCell(SizedBox(
-                  width: 120.w,
-                  child: const Text('EXDHEMAT', textAlign: TextAlign.left),
-                )),
                 DataCell(Padding(
                   padding: EdgeInsets.symmetric(vertical: 13.h),
-                  child: SizedBox(
-                    width: 80.w,
-                    child: const Text('Rp. 21,999', textAlign: TextAlign.left),
-                  ),
+                  child: const Text('Semarang', textAlign: TextAlign.left),
                 )),
-                DataCell(SizedBox(
-                  width: 75.w,
-                  child: const Text('1-4 hari', textAlign: TextAlign.left),
+                DataCell(Padding(
+                  padding: EdgeInsets.fromLTRB(0, 13.h, 16.w, 13.h),
+                  child: const Text('Jl. Anjasmoro Raya No. 57 Kel. Karangayu', textAlign: TextAlign.left),
                 )),
               ],
             );
