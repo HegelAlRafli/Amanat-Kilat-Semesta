@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/theme/color_value.dart';
+import '../../../core/widgets/custom_appbar/custom_appbar_widget.dart';
 
 class AboutUsPage extends StatefulWidget {
   const AboutUsPage({super.key});
@@ -16,16 +17,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 24.w,
-        leading: Padding(
-            padding: EdgeInsets.only(left: 30.w),
-            child: Icon(
-              Icons.arrow_back_rounded,
-              size: 24.w,
-            )),
-        title: const Text('Tentang Kami'),
-      ),
+      appBar: customAppbarWidget(context, 'Tentang Kami'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.w),
         child: Column(
