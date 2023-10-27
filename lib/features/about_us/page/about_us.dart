@@ -17,7 +17,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: customAppbarWidget('Tentang Kami'),
+      appBar: customAppbarWidget(context, 'Tentang Kami'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.w),
         child: Column(
