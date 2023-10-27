@@ -1,3 +1,4 @@
+import 'package:amanat_kilat_semesta/search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(height: 32.h),
-            const SearchWidget(),
+            const SearchWidget(route: SearchPage( ),),
             SizedBox(height: 24.h),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
