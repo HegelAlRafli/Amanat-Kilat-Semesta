@@ -1,3 +1,5 @@
+import 'package:amanat_kilat_semesta/features/cutomer_services/page/customer_services.dart';
+import 'package:amanat_kilat_semesta/features/detail_pengiriman/detail_pengiriman.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const HomePage(),
+      child: const DetailPengirimanPage(),
     );
   }
 }
