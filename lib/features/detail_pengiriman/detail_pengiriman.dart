@@ -57,7 +57,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                     height: 30.h,
                   ),
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    padding: EdgeInsets.all(8.w),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.transparent,
@@ -77,14 +77,10 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                       ),
                       child: Center(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Image.asset(
                               'assets/illustrations/pickup.png',
-                              width: 50.w,
-                              height: 50.h,
-                            ),
-                            SizedBox(
-                              height: 16.h,
                             ),
                             Text("Pick Up",
                                 style: textTheme.headline6!.copyWith(
