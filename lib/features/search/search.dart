@@ -1,7 +1,10 @@
 import 'package:amanat_kilat_semesta/features/detail_pengiriman/detail_pengiriman.dart';
+import 'package:amanat_kilat_semesta/features/search/history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../sqflite/database_helper.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -14,11 +17,15 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   bool _isSearch = false;
+  final SearchHistoryDatabase _database = SearchHistoryDatabase();
+  List<String> searchHistory = [];
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _loadSearchHistory();
     _searchController.addListener(() {
       setState(() {
         // if textfield is empty
@@ -31,6 +38,22 @@ class _SearchPageState extends State<SearchPage> {
     });
     _searchFocusNode.requestFocus();
   }
+
+  void _loadSearchHistory() async {
+    final history = await _database.getSearchHistory();
+    setState(() {
+      searchHistory = history.reversed.toList();
+    });
+  }
+
+  void _saveSearchQuery() async {
+    final query = _searchController.text;
+    if (query.isNotEmpty) {
+      await _database.insertSearchQuery(query);
+      _loadSearchHistory();
+    }
+  }
+
 
   @override
   void dispose() {
@@ -49,26 +72,25 @@ class _SearchPageState extends State<SearchPage> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 16.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 50.h,
                     width: 250.w,
                     child: TextField(
                       onTap: () {
                         setState(() {
-                          // if textfield is empty
                         });
                       },
                       controller: _searchController,
                       focusNode: _searchFocusNode,
                       decoration: InputDecoration(
                         prefixIconConstraints: const BoxConstraints(),
-                        hintText: "Masukkan Nomer Resi",
+                        hintText: "Masukkan Nomor Resi",
                         hintStyle: textTheme.bodyText2?.copyWith(
                             fontSize: 12.sp,
                             color: const Color(0xff9B9B9B),
@@ -104,10 +126,13 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         contentPadding: EdgeInsets.zero,
                       ),
+                        enableInteractiveSelection: true
+
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
+                      _saveSearchQuery();
                       if (_isSearch) {
                         _searchController.clear();
                         _searchFocusNode.unfocus();
@@ -116,25 +141,43 @@ class _SearchPageState extends State<SearchPage> {
                         Navigator.pop(context);
                       }
                     },
-                    child: Text(_isSearch? "Search": "Cancel", style: textTheme.bodyText2?.copyWith(
+                    child: Text(_isSearch? "Cari": "Batal", style: textTheme.bodyText2?.copyWith(
                       fontSize: 12.sp,
                       color: const Color(0xff9B9B9B),
                       fontWeight: FontWeight.w500,
                     ),),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Terkini",
+                    style: textTheme.bodyText2?.copyWith(
+                      fontSize: 14.sp,
+                      color: const Color(0xff9B9B9B),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      _database.deleteAllSearchHistory();
+                      _loadSearchHistory();
+                    },
+                    child: Text("Hapus",
+                      style: textTheme.bodyText2?.copyWith(
+                        fontSize: 12.sp,
+                        color: const Color(0xff9B9B9B),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   )
                 ],
               ),
               SizedBox(height: 16.h),
-              Text("Terkini",
-                style: textTheme.bodyText2?.copyWith(
-                  fontSize: 14.sp,
-                  color: const Color(0xff9B9B9B),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(height: 16.h),
               ListView.builder(
-                itemCount: 2,
+                itemCount: searchHistory.length >= 8? 8: searchHistory.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
@@ -153,25 +196,44 @@ class _SearchPageState extends State<SearchPage> {
                         });
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailPengirimanPage(),));
                       },
-                      child: Text("J092HDUE03DJIJ32",
+                      child: Text(searchHistory[index],
                       style: textTheme.bodyText2?.copyWith(
                         fontSize: 14.sp,
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
                       ),),
                     ),
-                    const Spacer(),
+                     const Spacer(),
                     InkWell(
                         onTap: () {
                           setState(() {
-                            _searchController.text = "J092HDUE03DJIJ32";
+                            _searchController.text = searchHistory[index];
                             _searchFocusNode.requestFocus();
                           });
                         },
                         child: SvgPicture.asset("assets/icons/arrow_outward.svg", height: 24.h, width: 24.w,)),
                   ],),
                 );
-              },)
+              },),
+              searchHistory.length > 8? Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HistoryPage(),));
+                    },
+                    child: Text("Lihat Semua", style: textTheme.bodyText2?.copyWith(
+                      fontSize: 12.sp,
+                      color: const Color(0xff9B9B9B),
+                      fontWeight: FontWeight.w500,
+                    ),),
+                  ),
+                ],
+              ):Container(),
+
             ],
           ),
         ),
