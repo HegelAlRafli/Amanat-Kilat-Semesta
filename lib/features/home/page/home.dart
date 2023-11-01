@@ -7,7 +7,7 @@ import '../../about_us/page/about_us.dart';
 import '../../check_location/page/check_location.dart';
 import '../../check_postage/page/check_postage.dart';
 import '../../cutomer_services/page/customer_services.dart';
-import '../../search/search.dart';
+import '../../search/page/search.dart';
 import '../widgets/box_widget.dart';
 import '../widgets/search_widget.dart';
 
