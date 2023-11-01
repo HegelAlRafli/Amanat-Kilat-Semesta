@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../sqflite/database_helper.dart';
-import '../detail_pengiriman/detail_pengiriman.dart';
+import '../../../sqflite/database_helper.dart';
+import '../../detail_pengiriman/page/detail_pengiriman.dart';
 
 
 class HistoryPage extends StatefulWidget {
@@ -74,7 +74,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       onTap: () {
                         //close keyboard
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailPengirimanPage(),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPengirimanPage(resi: searchHistory[index],),));
                       },
                       child: Text(searchHistory[index],
                         style: textTheme.bodyText2?.copyWith(
