@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 32.h),
             const SearchWidget(route: SearchPage( ),),
             SizedBox(height: 24.h),
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 BoxWidget(

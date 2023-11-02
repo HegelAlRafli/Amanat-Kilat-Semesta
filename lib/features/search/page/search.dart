@@ -31,7 +31,6 @@ class _SearchPageState extends State<SearchPage> {
     _loadSearchHistory();
     _searchController.addListener(() {
       setState(() {
-        // if textfield is empty
         if (_searchController.text.isEmpty) {
           _isSearch = false;
         } else {
@@ -62,11 +61,11 @@ class _SearchPageState extends State<SearchPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: new Row(
+          content: Row(
             children: [
-              CircularProgressIndicator(),
+              const CircularProgressIndicator(),
               SizedBox(width: 16.w),
-              Text("Loading"),
+              const Text("Loading"),
             ],
           ),
         );
@@ -118,14 +117,14 @@ class _SearchPageState extends State<SearchPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("Resi tidak ditemukan"),
-              content: Text("Silahkan coba lagi"),
+              title: const Text("Resi tidak ditemukan"),
+              content: const Text("Silahkan coba lagi"),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("OK"),
+                  child: const Text("OK"),
                 ),
               ],
             );
@@ -139,14 +138,14 @@ class _SearchPageState extends State<SearchPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Terjadi kesalahan"),
-            content: Text("Silahkan coba lagi"),
+            title: const Text("Terjadi kesalahan"),
+            content: const Text("Silahkan coba lagi"),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("OK"),
+                child: const Text("OK"),
               ),
             ],
           );
@@ -369,7 +368,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           ),
-          _isLoading ? LoadingWidget() :
+          _isLoading ? const LoadingWidget() :
           Container()
         ],
       ),

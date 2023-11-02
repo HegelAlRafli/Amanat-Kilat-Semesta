@@ -10,6 +10,9 @@ import '../../../core/widgets/custom_appbar/custom_appbar_widget.dart';
 import '../../../core/widgets/scroll/scroll_behavior.dart';
 import '../widgets/table_location_widgets.dart';
 
+import 'package:http/http.dart' as http;
+
+
 class CheckLocationPage extends StatefulWidget {
   const CheckLocationPage({super.key});
 
