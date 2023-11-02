@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -21,13 +21,6 @@ class DetailPengirimanPage extends StatefulWidget {
 
 class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
   TrackModel? trackModel;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print('resi : ${widget.resi}');
-  }
 
   Future<TrackModel> getTrack() async {
     var url = 'https://sistem.amanatkilatsemesta.com/api/track/${widget.resi}';
@@ -116,9 +109,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                           padding: EdgeInsets.symmetric(horizontal: 30.w),
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 8.h,
-                              ),
+                              SizedBox(height: 8.h),
                               Container(
                                 padding: EdgeInsets.all(8.w),
                                 decoration: BoxDecoration(
@@ -130,8 +121,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                   ),
                                 ),
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 52.w, vertical: 38.h),
+                                  padding: EdgeInsets.symmetric(horizontal: 52.w, vertical: 38.h),
                                   height: 160.h,
                                   width: 160.w,
                                   decoration: const BoxDecoration(
@@ -140,20 +130,16 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                   ),
                                   child: Center(
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Image.asset(
                                           'assets/illustrations/${snapshot.data!.track!.status.toString()}.png',
                                         ),
-                                        Text(
-                                            snapshot.data!.track!.status
-                                                .toString()
-                                                .capitalize(),
+                                        Text(snapshot.data!.track!.status.toString()                                             .capitalize(),
                                             style: textTheme.bodyLarge!.copyWith(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: ColorValue.primaryColor)),
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorValue.primaryColor)),
                                       ],
                                     ),
                                   ),
@@ -190,38 +176,27 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                 child: Column(
                                   children: [
                                     Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           SizedBox(
                                             width: 118.w,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "Status :",
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                                          fontWeight: FontWeight.w500,
                                                           color: Colors.black),
                                                 ),
-                                                SizedBox(
-                                                  height: 4.h,
-                                                ),
+                                                SizedBox(height: 4.h),
                                                 Text(
-                                                  snapshot.data!.track!.status
-                                                      .toString()
-                                                      .capitalize(),
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  snapshot.data!.track!.status.toString().capitalize(),
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: const Color(
-                                                              0XFF9B9B9B)),
+                                                          fontWeight: FontWeight.w500,
+                                                          color: const Color(0XFF9B9B9B)),
                                                 ),
                                               ],
                                             ),
@@ -229,130 +204,55 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                           SizedBox(
                                             width: 118.w,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "Tanggal Diterima :",
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                                          fontWeight: FontWeight.w500,
                                                           color: Colors.black),
                                                 ),
-                                                SizedBox(
-                                                  height: 4.h,
-                                                ),
-                                                snapshot.data!.track!
-                                                            .receiptDate !=
-                                                        null
-                                                    ? Text(
-                                                        snapshot.data!.track!
-                                                            .receiptDate
-                                                            .toString(),
-                                                        style: textTheme
-                                                            .bodyMedium!
-                                                            .copyWith(
+                                                SizedBox(height: 4.h),
+                                                snapshot.data!.track!.receiptDate != null
+                                                    ? Text(snapshot.data!.track!.receiptDate.toString(),
+                                                        style: textTheme.bodyMedium!.copyWith(
                                                                 fontSize: 10.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: const Color(
-                                                                    0XFF9B9B9B)),
+                                                                fontWeight: FontWeight.w500,
+                                                                color: const Color(0XFF9B9B9B)),
                                                       )
                                                     : Text("-",
-                                                        style: textTheme
-                                                            .bodyMedium!
-                                                            .copyWith(
+                                                        style: textTheme.bodyMedium!.copyWith(
                                                                 fontSize: 10.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: const Color(
-                                                                    0XFF9B9B9B))),
-
-                                                // if (snapshot.data!.track!
-                                                //     .shippingTrackers!.isEmpty)
-                                                //   Text(
-                                                //     "-",
-                                                //     style: textTheme.bodyMedium!
-                                                //         .copyWith(
-                                                //             fontSize: 10.sp,
-                                                //             fontWeight:
-                                                //                 FontWeight.w500,
-                                                //             color: const Color(
-                                                //                 0XFF9B9B9B)),
-                                                //   )
-                                                // else if (snapshot
-                                                //         .data!
-                                                //         .track!
-                                                //         .shippingTrackers![0]
-                                                //         .date !=
-                                                //     null)
-                                                //   Text(
-                                                //     snapshot.data!.track!
-                                                //         .shippingTrackers![0].date
-                                                //         .toString(),
-                                                //     style: textTheme.bodyMedium!
-                                                //         .copyWith(
-                                                //             fontSize: 10.sp,
-                                                //             fontWeight:
-                                                //                 FontWeight.w500,
-                                                //             color: const Color(
-                                                //                 0XFF9B9B9B)),
-                                                //   )
-                                                // else
-                                                //   Text(
-                                                //     "-",
-                                                //     style: textTheme.bodyMedium!
-                                                //         .copyWith(
-                                                //             fontSize: 10.sp,
-                                                //             fontWeight:
-                                                //                 FontWeight.w500,
-                                                //             color: const Color(
-                                                //                 0XFF9B9B9B)),
+                                                                fontWeight: FontWeight.w500,
+                                                                color: const Color(0XFF9B9B9B))),
                                               ],
                                             ),
                                           ),
                                         ]),
-                                    SizedBox(
-                                      height: 16.h,
-                                    ),
+                                    SizedBox(height: 16.h),
                                     Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           SizedBox(
                                             width: 118.w,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "Asal :",
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                                          fontWeight: FontWeight.w500,
                                                           color: Colors.black),
                                                 ),
-                                                SizedBox(
-                                                  height: 4.h,
-                                                ),
+                                                SizedBox(height: 4.h),
                                                 Text(
-                                                  snapshot
-                                                      .data!.track!.kotaAsal!.name
-                                                      .toString()
-                                                      .toUpperCase(),
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  snapshot.data!.track!.kotaAsal!.name.toString().toUpperCase(),
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: const Color(
-                                                              0XFF9B9B9B)),
+                                                          fontWeight: FontWeight.w500,
+                                                          color: const Color(0XFF9B9B9B)),
                                                 ),
                                               ],
                                             ),
@@ -360,75 +260,50 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                           SizedBox(
                                             width: 118.w,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "Tujuan :",
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                                          fontWeight: FontWeight.w500,
                                                           color: Colors.black),
                                                 ),
-                                                SizedBox(
-                                                  height: 4.h,
-                                                ),
+                                                SizedBox(height: 4.h),
                                                 Text(
-                                                  snapshot.data!.track!
-                                                      .kotaTujuan!.name
-                                                      .toString()
-                                                      .toUpperCase(),
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  snapshot.data!.track!.kotaTujuan!.name.toString().toUpperCase(),
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: const Color(
-                                                              0XFF9B9B9B)),
+                                                          fontWeight: FontWeight.w500,
+                                                          color: const Color(0XFF9B9B9B)),
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ]),
-                                    SizedBox(
-                                      height: 16.h,
-                                    ),
+                                    SizedBox(height: 16.h),
                                     Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           SizedBox(
                                             width: 118.w,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "Nama Pengirim :",
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                                          fontWeight: FontWeight.w500,
                                                           color: Colors.black),
                                                 ),
-                                                SizedBox(
-                                                  height: 4.h,
-                                                ),
+                                                SizedBox(height: 4.h),
                                                 Text(
-                                                  snapshot
-                                                      .data!.track!.customer!.name
-                                                      .toString()
-                                                      .toUpperCase(),
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  snapshot.data!.track!.customer!.name.toString().toUpperCase(),
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: const Color(
-                                                              0XFF9B9B9B)),
+                                                          fontWeight: FontWeight.w500,
+                                                          color: const Color(0XFF9B9B9B)),
                                                 ),
                                               ],
                                             ),
@@ -436,32 +311,22 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                           SizedBox(
                                             width: 118.w,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "Nama Penerima :",
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                                          fontWeight: FontWeight.w500,
                                                           color: Colors.black),
                                                 ),
-                                                SizedBox(
-                                                  height: 4.h,
-                                                ),
+                                                SizedBox(height: 4.h),
                                                 Text(
-                                                  snapshot.data!.track!.recipient
-                                                      .toString()
-                                                      .toUpperCase(),
-                                                  style: textTheme.bodyMedium!
-                                                      .copyWith(
+                                                  snapshot.data!.track!.recipient.toString().toUpperCase(),
+                                                  style: textTheme.bodyMedium!.copyWith(
                                                           fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: const Color(
-                                                              0XFF9B9B9B)),
+                                                          fontWeight: FontWeight.w500,
+                                                          color: const Color(0XFF9B9B9B)),
                                                 ),
                                               ],
                                             ),
@@ -470,9 +335,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 24.h,
-                              ),
+                              SizedBox(height: 24.h),
                               Text(
                                 "Tracking :",
                                 style: textTheme.headlineMedium!.copyWith(
@@ -480,9 +343,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
-                              SizedBox(
-                                height: 24.h,
-                              ),
+                              SizedBox(height: 24.h),
                               ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
@@ -493,15 +354,10 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                     alignment: TimelineAlign.manual,
                                     lineXY: 0.34.w,
                                     isFirst: index == 0,
-                                    isLast:
-                                        index == snapshot.data!.data!.length - 1,
-                                    afterLineStyle: LineStyle(
-                                        color: ColorValue.primaryColor,
-                                        thickness: 2.w),
+                                    isLast: index == snapshot.data!.data!.length - 1,
+                                    afterLineStyle: LineStyle(color: ColorValue.primaryColor, thickness: 2.w),
                                     hasIndicator: true,
-                                    beforeLineStyle: LineStyle(
-                                        color: ColorValue.primaryColor,
-                                        thickness: 2.w),
+                                    beforeLineStyle: LineStyle(color: ColorValue.primaryColor, thickness: 2.w),
                                     indicatorStyle: IndicatorStyle(
                                       padding: EdgeInsets.zero,
                                       height: 11.h,
@@ -526,56 +382,42 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                             ),
                                     ),
                                     startChild: Container(
-                                      padding: EdgeInsets.only(
-                                        right: 27.w,
-                                      ),
+                                      padding: EdgeInsets.only(right: 27.w),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
                                         children: [
-                                          if (snapshot.data!.data![index].date
-                                                  .toString() ==
-                                              "null")
+                                          if (snapshot.data!.data![index].date.toString() == "null")
                                             const Text(""),
-                                          if (snapshot.data!.data![index].date
-                                                  .toString() !=
+                                          if (snapshot.data!.data![index].date.toString() !=
                                               "null")
                                             Text(
-                                              snapshot.data!.data![index].date
-                                                  .toString(),
-                                              style: textTheme.bodyMedium!
-                                                  .copyWith(
+                                              snapshot.data!.data![index].date.toString(),
+                                              style: textTheme.bodyMedium!.copyWith(
                                                       fontSize: 12.sp,
                                                       fontWeight: FontWeight.w500,
-                                                      color: const Color(
-                                                          0xff737373)),
+                                                      color: const Color(0xff737373)),
                                             ),
                                           Text(
-                                            snapshot.data!.data![index].time
-                                                .toString(),
+                                            snapshot.data!.data![index].time.toString(),
                                             style: textTheme.bodyMedium!.copyWith(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black),
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black),
                                           )
                                         ],
                                       ),
                                     ),
                                     endChild: Container(
-                                      padding: EdgeInsets.only(
-                                          left: 27.w, bottom: 24.h),
+                                      padding: EdgeInsets.only(left: 27.w, bottom: 24.h),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            snapshot.data!.data![index].notes
-                                                .toString()
-                                                .capitalize(),
+                                            snapshot.data!.data![index].notes.toString().capitalize(),
                                             style: textTheme.bodyMedium!.copyWith(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: const Color(0xff737373)),
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: const Color(0xff737373)),
                                           ),
                                         ],
                                       ),
@@ -614,9 +456,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: Column(
               children: [
-                SizedBox(
-                  height: 8.h,
-                ),
+                SizedBox(height: 8.h),
                 Container(
                   padding: EdgeInsets.all(8.w),
                   decoration: BoxDecoration(
@@ -628,8 +468,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                     ),
                   ),
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 52.w, vertical: 38.h),
+                    padding: EdgeInsets.symmetric(horizontal: 52.w, vertical: 38.h),
                     height: 160.h,
                     width: 160.w,
                     decoration: const BoxDecoration(
@@ -638,14 +477,13 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                     ),
                     child: Center(
                       child: Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Shimmer.fromColors(
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.grey[100]!,
                             child: Container(
-                              decoration:  BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Colors.grey[300]!,
                                 borderRadius: BorderRadius.circular(5.r),
                               ),
@@ -658,15 +496,11 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.grey[100]!,
                             child: Container(
-                              decoration:  BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Colors.grey[300]!,
                                 borderRadius: BorderRadius.circular(5.r),
                               ),
-
-                              child: Text(
-                                  "pending"
-                                      .toString()
-                                      .capitalize(),
+                              child: Text("pending".toString().capitalize(),
                                   style: textTheme.bodyMedium!.copyWith(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w600,
@@ -689,9 +523,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 24.h,
-                ),
+                SizedBox(height: 24.h),
                 Text(
                   "Detail Pengiriman",
                   style: textTheme.headlineMedium!.copyWith(
@@ -699,16 +531,12 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                       fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),
-                SizedBox(
-                  height: 16.h,
-                ),
+                SizedBox(height: 16.h),
                 Container(
                   padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.r),
-                    border: Border.all(
-                      color: const Color(0XFF9B9B9B).withOpacity(1),
-                    ),
+                    border: Border.all(color: const Color(0XFF9B9B9B).withOpacity(1)),
                   ),
                   child: Column(
                     children: [
@@ -727,18 +555,14 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
+                                  SizedBox(height: 4.h),
                                   Shimmer.fromColors(
                                     baseColor: Colors.grey[300]!,
                                     highlightColor: Colors.grey[100]!,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.grey[300]!,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(5.r),
-                                        ),
+                                        borderRadius: BorderRadius.all(Radius.circular(5.r)),
                                       ),
                                       child: Text(
                                         "pending".toString().capitalize(),
@@ -764,9 +588,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
+                                  SizedBox(height: 4.h),
                                   Text(
                                     "-",
                                     style: textTheme.bodyMedium!.copyWith(
@@ -778,9 +600,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                               ),
                             ),
                           ]),
-                      SizedBox(
-                        height: 16.h,
-                      ),
+                      SizedBox(height: 16.h),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -796,9 +616,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
+                                  SizedBox(height: 4.h),
                                   Shimmer.fromColors(
                                     baseColor: Colors.grey[300]!,
                                     highlightColor: Colors.grey[100]!,
@@ -833,9 +651,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
+                                  SizedBox(height: 4.h),
                                   Shimmer.fromColors(
                                     baseColor: Colors.grey[300]!,
                                     highlightColor: Colors.grey[100]!,
@@ -859,9 +675,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                               ),
                             ),
                           ]),
-                      SizedBox(
-                        height: 16.h,
-                      ),
+                      SizedBox(height: 16.h),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -877,9 +691,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
+                                  SizedBox(height: 4.h),
                                   Shimmer.fromColors(
                                     baseColor: Colors.grey[300]!,
                                     highlightColor: Colors.grey[100]!,
@@ -887,8 +699,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.grey[300]!,
                                         borderRadius: BorderRadius.all(
-                                          Radius.circular(5.r),
-                                        ),
+                                          Radius.circular(5.r)),
                                       ),
                                       child: Text(
                                         'Dadang Sutisna'.toUpperCase(),
@@ -914,18 +725,14 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black),
                                   ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
+                                  SizedBox(height: 4.h),
                                   Shimmer.fromColors(
                                     baseColor: Colors.grey[300]!,
                                     highlightColor: Colors.grey[100]!,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.grey[300]!,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(5.r),
-                                        ),
+                                        borderRadius: BorderRadius.all(Radius.circular(5.r)),
                                       ),
                                       child: Text(
                                         'Dadang Sutisna'.toUpperCase(),
@@ -943,9 +750,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 24.h,
-                ),
+                SizedBox(height: 24.h),
                 Text(
                   "Tracking :",
                   style: textTheme.bodyMedium!.copyWith(
@@ -953,9 +758,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                       fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),
-                SizedBox(
-                  height: 24.h,
-                ),
+                SizedBox(height: 24.h),
                 ListView.builder(
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
@@ -967,18 +770,14 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                       lineXY: 0.34.w,
                       isFirst: index == 0,
                       isLast: index == 2,
-                      afterLineStyle: LineStyle(
-                          color: ColorValue.primaryColor, thickness: 2.w),
+                      afterLineStyle: LineStyle(color: ColorValue.primaryColor, thickness: 2.w),
                       hasIndicator: true,
-                      beforeLineStyle: LineStyle(
-                          color: ColorValue.primaryColor, thickness: 2.w),
+                      beforeLineStyle: LineStyle(color: ColorValue.primaryColor, thickness: 2.w),
                       indicatorStyle: IndicatorStyle(
                         padding: EdgeInsets.zero,
                         height: 11.h,
                         width: 11.w,
-                        color: index == 0
-                            ? ColorValue.primaryColor
-                            : const Color(0XFF9B9B9B),
+                        color: index == 0 ? ColorValue.primaryColor : const Color(0XFF9B9B9B),
                         indicator: index == 0
                             ? Container(
                                 decoration: BoxDecoration(
@@ -996,9 +795,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                               ),
                       ),
                       startChild: Container(
-                        padding: EdgeInsets.only(
-                          right: 27.w,
-                        ),
+                        padding: EdgeInsets.only(right: 27.w),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -1021,18 +818,14 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
+                            SizedBox(height: 1.h),
                             Shimmer.fromColors(
                               baseColor: Colors.grey[300]!,
                               highlightColor: Colors.grey[100]!,
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.grey[300]!,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(5.r),
-                                  ),
+                                  borderRadius: BorderRadius.all(Radius.circular(5.r)),
                                 ),
                                 child: Text(
                                   "08.00",
@@ -1054,9 +847,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.grey[300]!,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5.r),
-                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(5.r)),
                             ),
                             child: Text(
                               "Barang nya sudah sampai bandung",

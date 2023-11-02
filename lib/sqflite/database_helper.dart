@@ -20,9 +20,7 @@ class SearchHistoryDatabase {
       path,
       version: 1,
       onCreate: (db, version) {
-        return db.execute(
-          'CREATE TABLE search_history(id INTEGER PRIMARY KEY, query TEXT)',
-        );
+        return db.execute('CREATE TABLE search_history(id INTEGER PRIMARY KEY, query TEXT)');
       },
     );
   }

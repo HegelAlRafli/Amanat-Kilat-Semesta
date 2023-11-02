@@ -52,7 +52,6 @@ class _HistoryPageState extends State<HistoryPage> {
                       'assets/icons/arrow-back.svg',
                       height: 24.h,
                       width: 24.w,
-                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -73,21 +72,16 @@ class _HistoryPageState extends State<HistoryPage> {
                     InkWell(
                       onTap: () {
                         //close keyboard
-
                         Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPengirimanPage(resi: searchHistory[index],),));
                       },
-                      child: Text(searchHistory[index],
-                        style: textTheme.bodyText2?.copyWith(
-                          fontSize: 14.sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),),
+                      child: Text(searchHistory[index], style: textTheme.headlineMedium
+                      ),
                     ),
                     const Spacer(),
                   ],),
                 );
-              },),
-
+              },
+            ),
           ],
         ),
       ),

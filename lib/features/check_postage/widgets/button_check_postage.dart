@@ -16,23 +16,20 @@ class CheckPostageButtonWidget extends StatefulWidget {
     required this.idDestination,
   });
 
-  final String idOrigin;
-
-  final String idDestination;
+  final String idOrigin, idDestination;
 
   @override
   State<CheckPostageButtonWidget> createState() => _CheckPostageButtonWidgetState();
 }
 
 class _CheckPostageButtonWidgetState extends State<CheckPostageButtonWidget> {
-  bool isVisible = false;
-
   PostageModel? model;
-  List listDestinationLocations = [];
 
+  List listDestinationLocations = [];
   List listOriginLocations = [];
 
   String status = 'initiate';
+
   void _fetchApi(String from, to) async {
     setState(() {
       status = 'fetch';
@@ -47,7 +44,7 @@ class _CheckPostageButtonWidgetState extends State<CheckPostageButtonWidget> {
 
     model = PostageModel.fromJson(json.decode(response.body.toString()));
 
-    if (model!.status == '200') {
+    if (response.statusCode == '200') {
       setState(() {
         status = 'hasData';
       });
@@ -88,12 +85,9 @@ class _CheckPostageButtonWidgetState extends State<CheckPostageButtonWidget> {
                         children: [
                           SizedBox(height: 32.h),
                           model!.rate.isEmpty
-                              ? Text(
-                                  'Tidak ada data untuk ${model!.asal} Tujuan ${model!.tujuan}')
-                              : Text(
-                                  'Ongkos Kirim dari ${model!.asal} Ke ${model!.tujuan} :',
-                                  style: textTheme.bodyLarge
-                                      ?.copyWith(color: Colors.black)),
+                              ? Text('Tidak ada data untuk ${model!.asal} Tujuan ${model!.tujuan}')
+                              : Text('Ongkos Kirim dari ${model!.asal} Ke ${model!.tujuan} :',
+                                  style: textTheme.bodyLarge?.copyWith(color: Colors.black)),
                           SizedBox(height: 16.h),
                           model!.rate.isEmpty
                               ? const SizedBox()

@@ -1,9 +1,9 @@
-import 'package:amanat_kilat_semesta/features/check_location/model/check_location_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/theme/color_value.dart';
+import '../model/check_location_model.dart';
 
 class TableLocationWidget extends StatelessWidget {
   final CheckLocationModel checkLocationModel;
@@ -55,11 +55,11 @@ class TableLocationWidget extends StatelessWidget {
               cells: [
                 DataCell(Padding(
                   padding: EdgeInsets.symmetric(vertical: 13.h),
-                  child:  Text(checkLocationModel!.data![index].city!, textAlign: TextAlign.left),
+                  child:  Text(checkLocationModel.data![index].city!, textAlign: TextAlign.left),
                 )),
                 DataCell(Padding(
                   padding: EdgeInsets.fromLTRB(0, 13.h, 16.w, 13.h),
-                  child:  Text(checkLocationModel!.data![index].address!, textAlign: TextAlign.left),
+                  child:  Text(checkLocationModel.data![index].address!, textAlign: TextAlign.left),
                 )),
               ],
             );
