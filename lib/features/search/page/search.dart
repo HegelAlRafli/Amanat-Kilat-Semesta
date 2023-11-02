@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../core/widgets/custom_appbar/custom_appbar_widget.dart';
 import '../../../sqflite/database_helper.dart';
 
 class SearchPage extends StatefulWidget {
@@ -56,33 +57,6 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
-  void _onLoading() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Row(
-            children: [
-              const CircularProgressIndicator(),
-              SizedBox(width: 16.w),
-              const Text("Loading"),
-            ],
-          ),
-        );
-      },
-    );
-    new Future.delayed(new Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DetailPengirimanPage(
-            resi: _searchController.text,
-          ),
-        ),
-      );
-    });
-  }
-
   Future<void> _searchCheck(String query) async {
     //get response
     setState(() {
@@ -117,6 +91,7 @@ class _SearchPageState extends State<SearchPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+
               title: const Text("Resi tidak ditemukan"),
               content: const Text("Silahkan coba lagi"),
               actions: [
@@ -170,6 +145,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      appBar: transparentAppBarWidget(),
       body:
       Stack(
         children: [
@@ -195,7 +171,7 @@ class _SearchPageState extends State<SearchPage> {
                             decoration: InputDecoration(
                               prefixIconConstraints: const BoxConstraints(),
                               hintText: "Masukkan Nomor Resi",
-                              hintStyle: textTheme.bodyText2?.copyWith(
+                              hintStyle: textTheme.displayMedium?.copyWith(
                                   fontSize: 12.sp,
                                   color: const Color(0xff9B9B9B),
                                   fontWeight: FontWeight.w500),
@@ -236,7 +212,7 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                             enableInteractiveSelection: true),
                       ),
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           _saveSearchQuery();
                           if (_isSearch) {
@@ -246,12 +222,18 @@ class _SearchPageState extends State<SearchPage> {
                             Navigator.pop(context);
                           }
                         },
-                        child: Text(
-                          _isSearch ? "Cari" : "Batal",
-                          style: textTheme.bodyText2?.copyWith(
-                            fontSize: 12.sp,
-                            color: const Color(0xff9B9B9B),
-                            fontWeight: FontWeight.w500,
+                        child: SizedBox(
+                          height: 50.h,
+                          width: 50.w,
+                          child: Center(
+                            child: Text(
+                              _isSearch ? "Cari" : "Batal",
+                              style: textTheme.displayMedium?.copyWith(
+                                fontSize: 12.sp,
+                                color: const Color(0xff9B9B9B),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -263,23 +245,28 @@ class _SearchPageState extends State<SearchPage> {
                     children: [
                       Text(
                         "Terkini",
-                        style: textTheme.bodyText2?.copyWith(
+                        style: textTheme.displayMedium?.copyWith(
                           fontSize: 14.sp,
                           color: const Color(0xff9B9B9B),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
                           _database.deleteAllSearchHistory();
                           _loadSearchHistory();
                         },
-                        child: Text(
-                          "Hapus",
-                          style: textTheme.bodyText2?.copyWith(
-                            fontSize: 12.sp,
-                            color: const Color(0xff9B9B9B),
-                            fontWeight: FontWeight.w500,
+                        child: SizedBox(
+                          height: 24.h,
+                          child: Center(
+                            child: Text(
+                              "Hapus",
+                              style: textTheme.displayMedium?.copyWith(
+                                fontSize: 12.sp,
+                                color: const Color(0xff9B9B9B),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ),
                         ),
                       )
@@ -292,48 +279,52 @@ class _SearchPageState extends State<SearchPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 16.h),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              "assets/icons/history.svg",
-                              height: 24.h,
-                              width: 24.w,
-                            ),
-                            SizedBox(
-                              width: 16.w,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                //close keyboard
-                                FocusScope.of(context).unfocus();
-                                _searchCheck(searchHistory[index]);
-                              },
-                              child: Text(
-                                searchHistory[index],
-                                style: textTheme.bodyText2?.copyWith(
-                                  fontSize: 14.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                      return Column(
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              FocusScope.of(context).unfocus();
+                              _searchCheck(searchHistory[index]);
+                            },
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/icons/history.svg",
+                                    height: 24.h,
+                                    width: 24.w,
+                                  ),
+                                  SizedBox(
+                                    width: 16.w,
+                                  ),
+                                  Text(
+                                    searchHistory[index],
+                                    style: textTheme.displayMedium?.copyWith(
+                                      fontSize: 14.sp,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _searchController.text = searchHistory[index];
+                                          _searchFocusNode.requestFocus();
+                                        });
+                                      },
+                                      child: SvgPicture.asset(
+                                        "assets/icons/arrow_outward.svg",
+                                        height: 24.h,
+                                        width: 24.w,
+                                      )),
+                                ],
                               ),
                             ),
-                            const Spacer(),
-                            InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    _searchController.text = searchHistory[index];
-                                    _searchFocusNode.requestFocus();
-                                  });
-                                },
-                                child: SvgPicture.asset(
-                                  "assets/icons/arrow_outward.svg",
-                                  height: 24.h,
-                                  width: 24.w,
-                                )),
-                          ],
-                        ),
+                          ),
+                          SizedBox(
+                            height: 16.h,),
+                        ],
                       );
                     },
                   ),
@@ -354,7 +345,7 @@ class _SearchPageState extends State<SearchPage> {
                               },
                               child: Text(
                                 "Lihat Semua",
-                                style: textTheme.bodyText2?.copyWith(
+                                style: textTheme.displayMedium?.copyWith(
                                   fontSize: 12.sp,
                                   color: const Color(0xff9B9B9B),
                                   fontWeight: FontWeight.w500,

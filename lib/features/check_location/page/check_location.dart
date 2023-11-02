@@ -193,7 +193,12 @@ class _CheckLocationPageState extends State<CheckLocationPage> {
                         TableLocationWidget(checkLocationModel: snapshot.data!)
                       ],
                     )
-                        : TableLocationLoadingWidget(),
+                        : Column(
+                          children: [
+                            SizedBox(height: 16.h),
+                            TableLocationLoadingWidget(),
+                          ],
+                        ),
 
                   ],
                 ),

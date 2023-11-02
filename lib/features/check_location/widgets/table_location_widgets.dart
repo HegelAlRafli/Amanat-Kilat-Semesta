@@ -69,6 +69,7 @@ class TableLocationWidget extends StatelessWidget {
     );
   }
 }
+
 class TableLocationLoadingWidget extends StatelessWidget {
   const TableLocationLoadingWidget({super.key});
 
@@ -122,7 +123,12 @@ class TableLocationLoadingWidget extends StatelessWidget {
                     baseColor: Colors.grey[300]!,
                     highlightColor: Colors.grey[100]!,
                     child: Container(
-                        color: Colors.grey[300]!,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300]!,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5.r),
+                          ),
+                        ),
                     child: Text("asdd", textAlign: TextAlign.left)),
                   ),
                 )),
@@ -132,7 +138,12 @@ class TableLocationLoadingWidget extends StatelessWidget {
                     baseColor: Colors.grey[300]!,
                       highlightColor: Colors.grey[100]!,
                       child: Container(
-                          color: Colors.grey[300]!,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300]!,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5.r),
+                            ),
+                          ),
                           child: Text("asddsksaasssd", textAlign: TextAlign.left))),
                 )),
               ],
