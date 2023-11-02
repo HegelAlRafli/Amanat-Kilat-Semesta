@@ -44,7 +44,7 @@ class _CheckPostageButtonWidgetState extends State<CheckPostageButtonWidget> {
 
     model = PostageModel.fromJson(json.decode(response.body.toString()));
 
-    if (response.statusCode == '200') {
+    if (response.statusCode == 200) {
       setState(() {
         status = 'hasData';
       });
