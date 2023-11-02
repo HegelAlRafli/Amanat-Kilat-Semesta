@@ -37,20 +37,14 @@ class TablePostageWidget extends StatelessWidget {
 
           // Table Headers
           columns: [
-            const DataColumn(
-                label: Text('Kategori')),
-            DataColumn(
-                label: RichText(
+            const DataColumn(label: Text('Kategori')),
+            DataColumn(label: RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(
-                    text: 'Tarif',
-                    style: textTheme.bodyLarge?.copyWith(color: Colors.white),
-                  ),
-                  TextSpan(
-                    text: '(/Kg)',
-                    style: textTheme.bodyLarge?.copyWith(color: Colors.white, fontSize: 8.sp),
-                  ),
+                  TextSpan(text: 'Tarif',
+                    style: textTheme.bodyLarge?.copyWith(color: Colors.white)),
+                  TextSpan(text: '(/Kg)',
+                    style: textTheme.bodyLarge?.copyWith(color: Colors.white, fontSize: 8.sp)),
                 ],
               ),
             )),
@@ -72,13 +66,13 @@ class TablePostageWidget extends StatelessWidget {
               cells: [
                 DataCell(SizedBox(
                   width: 120.w,
-                  child:  Text(model.rate[index].servicesType.name, textAlign: TextAlign.left),
+                  child:  Text(model.rate[index].servicesType.name, textAlign: TextAlign.left)
                 )),
                 DataCell(Padding(
                   padding: EdgeInsets.symmetric(vertical: 13.h),
                   child: SizedBox(
                     width: 80.w,
-                    child:  Text(CurrencyFormat.convertToIdr(model.rate[index].price), textAlign: TextAlign.left),
+                    child:  Text(CurrencyFormat.convertToIdr(model.rate[index].price), textAlign: TextAlign.left)
                   ),
                 )),
                 DataCell(SizedBox(

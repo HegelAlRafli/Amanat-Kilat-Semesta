@@ -40,7 +40,7 @@ class BoxWidget extends StatelessWidget {
                 : Image.asset(icon, height: 50.h, width: 50.w),
             Text(
               title,
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 12.sp,
                   color: const Color(0XFF737373),
                   fontWeight: FontWeight.w500),

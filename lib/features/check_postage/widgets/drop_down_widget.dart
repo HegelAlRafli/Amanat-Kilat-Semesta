@@ -22,12 +22,11 @@ class DropDownWidget extends StatefulWidget {
 
 class _DropDownWidgetState extends State<DropDownWidget> {
   String? selectedOriginLocation;
-
   String? selectedDestinationLocation;
 
   int? indexOrigin;
-
   int? indexDestination;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -42,8 +41,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
           isDense: true,
           isExpanded: true,
           borderRadius: BorderRadius.circular(7.5.r),
-          icon: const Icon(Icons.arrow_drop_down_rounded,
-              color: ColorValue.greyColor),
+          icon: const Icon(Icons.arrow_drop_down_rounded, color: ColorValue.greyColor),
           iconSize: 24.w,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(

@@ -7,9 +7,11 @@ import '../../../core/theme/color_value.dart';
 class SearchWidget extends StatelessWidget {
   const SearchWidget({Key? key, required this.route}) : super(key: key);
   final Widget route;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) => route));
@@ -25,8 +27,7 @@ class SearchWidget extends StatelessWidget {
           children: [
             Text(
               "Lacak Paket Kamu!",
-              style: textTheme.headline6?.copyWith(
-                fontSize: 14.sp,
+              style: textTheme.headlineMedium?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.w900,
               ),
@@ -34,10 +35,9 @@ class SearchWidget extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               "Masukkan nomor pengiriman yang diberikan oleh petugas.",
-              style: textTheme.bodyText2?.copyWith(
+              style: textTheme.bodyLarge?.copyWith(
                 fontSize: 12.sp,
                 color: Colors.white,
-                fontWeight: FontWeight.w500,
               ),
             ),
             SizedBox(height: 16.h),
@@ -53,10 +53,7 @@ class SearchWidget extends StatelessWidget {
                   SizedBox(width: 16.w),
                   Text(
                     "Masukkan nomer Resi",
-                    style: textTheme.bodyText2?.copyWith(
-                        fontSize: 12.sp,
-                        color: const Color(0XFF9B9B9B),
-                        fontWeight: FontWeight.w400),
+                    style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
                   ),
                 ],
               ),

@@ -1,5 +1,3 @@
-import 'package:amanat_kilat_semesta/features/cutomer_services/page/customer_services.dart';
-import 'package:amanat_kilat_semesta/features/detail_pengiriman/page/detail_pengiriman.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,7 +6,9 @@ import 'core/theme/app_theme_data.dart';
 import 'features/home/page/home.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+
   deviceOrientation();
   statusBarDarkStyle();
 

@@ -34,8 +34,7 @@ class LoadingTablePostageWidget extends StatelessWidget {
 
           // Table Headers
           columns: [
-            const DataColumn(
-                label: Text('Kategori')),
+            const DataColumn(label: Text('Kategori')),
             DataColumn(
                 label: RichText(
                   text: TextSpan(
