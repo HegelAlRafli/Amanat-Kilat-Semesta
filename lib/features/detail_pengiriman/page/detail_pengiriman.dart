@@ -24,7 +24,6 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getTrack();
     print('resi : ${widget.resi}');
   }
 
