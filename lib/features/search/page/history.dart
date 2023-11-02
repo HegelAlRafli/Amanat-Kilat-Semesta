@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../sqflite/database_helper.dart';
 import '../../detail_pengiriman/page/detail_pengiriman.dart';
-
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _loadSearchHistory();
   }
@@ -30,10 +29,9 @@ class _HistoryPageState extends State<HistoryPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final textTheme=Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -66,19 +64,30 @@ class _HistoryPageState extends State<HistoryPage> {
               itemBuilder: (context, index) {
                 return Container(
                   margin: EdgeInsets.only(bottom: 16.h),
-                  child: Row(children: [
-                    SvgPicture.asset("assets/icons/history.svg", height: 24.h, width: 24.w,),
-                    SizedBox(width: 16.w,),
-                    InkWell(
-                      onTap: () {
-                        //close keyboard
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPengirimanPage(resi: searchHistory[index],),));
-                      },
-                      child: Text(searchHistory[index], style: textTheme.headlineMedium
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/icons/history.svg",
+                        height: 24.h,
+                        width: 24.w,
                       ),
-                    ),
-                    const Spacer(),
-                  ],),
+                      SizedBox(width: 16.w),
+                      InkWell(
+                        onTap: () {
+                          //close keyboard
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailPengirimanPage(
+                                  resi: searchHistory[index],
+                                ),
+                              ));
+                        },
+                        child: Text(searchHistory[index], style: textTheme.headlineMedium),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
                 );
               },
             ),

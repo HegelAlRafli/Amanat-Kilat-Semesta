@@ -1,14 +1,14 @@
-import 'package:amanat_kilat_semesta/core/widgets/loading/loading_widget.dart';
-import 'package:amanat_kilat_semesta/features/detail_pengiriman/model/track_model.dart';
-import 'package:amanat_kilat_semesta/features/detail_pengiriman/page/detail_pengiriman.dart';
-import 'package:amanat_kilat_semesta/features/search/page/history.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../core/widgets/custom_appbar/custom_appbar_widget.dart';
+import '../../../core/widgets/loading/loading_widget.dart';
 import '../../../sqflite/database_helper.dart';
+import '../../detail_pengiriman/page/detail_pengiriman.dart';
+import 'history.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -63,7 +63,6 @@ class _SearchPageState extends State<SearchPage> {
       _isLoading = true;
     });
     try {
-
       var url = ('https://sistem.amanatkilatsemesta.com/api/track/$query');
       final response = await http.get(
         Uri.parse(url),
@@ -72,12 +71,8 @@ class _SearchPageState extends State<SearchPage> {
           'Accept': 'application/json',
         },
       );
-      print("response : ${response.body}");
-      print('status code : ${response.statusCode}');
 
       if (response.statusCode == 200) {
-
-        TrackModel trackModel;
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -91,7 +86,6 @@ class _SearchPageState extends State<SearchPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-
               title: const Text("Resi tidak ditemukan"),
               content: const Text("Silahkan coba lagi"),
               actions: [
@@ -106,9 +100,7 @@ class _SearchPageState extends State<SearchPage> {
           },
         );
       } else {}
-    }
-      catch (e) {
-      print(e);
+    } catch (e) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -134,7 +126,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _searchController.dispose();
     _searchFocusNode.dispose();
@@ -146,8 +137,7 @@ class _SearchPageState extends State<SearchPage> {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: transparentAppBarWidget(),
-      body:
-      Stack(
+      body: Stack(
         children: [
           SafeArea(
             child: Container(
@@ -282,7 +272,7 @@ class _SearchPageState extends State<SearchPage> {
                       return Column(
                         children: [
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               FocusScope.of(context).unfocus();
                               _searchCheck(searchHistory[index]);
                             },
@@ -294,9 +284,7 @@ class _SearchPageState extends State<SearchPage> {
                                     height: 24.h,
                                     width: 24.w,
                                   ),
-                                  SizedBox(
-                                    width: 16.w,
-                                  ),
+                                  SizedBox(width: 16.w),
                                   Text(
                                     searchHistory[index],
                                     style: textTheme.displayMedium?.copyWith(
@@ -322,8 +310,7 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 16.h,),
+                          SizedBox(height: 16.h),
                         ],
                       );
                     },
@@ -332,9 +319,7 @@ class _SearchPageState extends State<SearchPage> {
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              height: 8.h,
-                            ),
+                            SizedBox(height: 8.h),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -359,8 +344,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           ),
-          _isLoading ? const LoadingWidget() :
-          Container()
+          _isLoading ? const LoadingWidget() : Container()
         ],
       ),
     );
