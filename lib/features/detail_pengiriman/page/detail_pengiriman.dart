@@ -31,8 +31,6 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
   Future<TrackModel> getTrack() async {
     var url = 'https://sistem.amanatkilatsemesta.com/api/track/${widget.resi}';
 
-    print('-----------user-------------');
-
     try {
       final response = await http.get(
         Uri.parse(url),
@@ -41,12 +39,8 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
           'Accept': 'application/json',
         },
       );
-      print("response : ${response.body}");
-      print('status code : ${response.statusCode}');
 
       if (response.statusCode == 200) {
-        print(url);
-
         TrackModel model = TrackModel.fromJson(json.decode(response.body));
 
         return model;
@@ -78,6 +72,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                 child: Icon(Icons.arrow_back_rounded, size: 24.w),
               )),
           shape: const RoundedRectangleBorder(
+            side: BorderSide(color: ColorValue.primaryColor, width: 0),
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(0),
             ),
@@ -85,26 +80,24 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
           elevation: 0,
           centerTitle: true,
           title: FutureBuilder(
-            future: getTrack(),
-        builder: (context, AsyncSnapshot<TrackModel> snapshot) {
-              return
-                snapshot.hasData?
-                Text(
-                snapshot.data!.track!.awb.toString(),
-                style: textTheme.headline6!.copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ):
-                    Text(
-                '-',
-                style: textTheme.headline6!.copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              );
-        }
-          ),
+              future: getTrack(),
+              builder: (context, AsyncSnapshot<TrackModel> snapshot) {
+                return snapshot.hasData
+                    ? Text(
+                        snapshot.data!.track!.awb.toString(),
+                        style: textTheme.headline6!.copyWith(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      )
+                    : Text(
+                        '-',
+                        style: textTheme.headline6!.copyWith(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      );
+              }),
         ),
         body: FutureBuilder<TrackModel>(
             future: getTrack(),
@@ -115,20 +108,13 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                          ],
-                        ),
-                      ),
-                      Container(
                         color: ColorValue.primaryColor,
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(horizontal: 30.w),
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 30.h,
+                              height: 8.h,
                             ),
                             Container(
                               padding: EdgeInsets.all(8.w),
@@ -170,9 +156,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 29.h,
-                            ),
+                            SizedBox(height: 29.h),
                           ],
                         ),
                       ),
@@ -183,9 +167,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: 24.h,
-                            ),
+                            SizedBox(height: 24.h),
                             Text(
                               "Detail Pengiriman",
                               style: textTheme.headline6!.copyWith(
@@ -193,9 +175,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),
                             ),
-                            SizedBox(
-                              height: 16.h,
-                            ),
+                            SizedBox(height: 16.h),
                             Container(
                               padding: EdgeInsets.all(16.w),
                               decoration: BoxDecoration(
@@ -553,7 +533,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                                         if (snapshot.data!.data![index].date
                                                 .toString() ==
                                             "null")
-                                          Text(""),
+                                          const Text(""),
                                         if (snapshot.data!.data![index].date
                                                 .toString() !=
                                             "null")
@@ -607,7 +587,7 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
                   ),
                 );
               } else if (snapshot.hasError) {
-                return Center(
+                return const Center(
                   child: Text("Error"),
                 );
               } else {
@@ -626,52 +606,11 @@ class _DetailPengirimanPageState extends State<DetailPengirimanPage> {
         children: [
           Container(
             width: double.infinity,
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).viewPadding.top,
-                  color: Color(0xffED1B24),
-                ),
-              ],
-            ),
-          ),
-          Container(
             color: ColorValue.primaryColor,
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: Column(
               children: [
-                SizedBox(
-                  height: 16.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: SvgPicture.asset(
-                          'assets/icons/arrow-back.svg',
-                          width: 24.w,
-                          height: 24.h,
-                        )),
-                    Shimmer.fromColors(
-                      baseColor: Colors.white,
-                      highlightColor: Colors.grey[300]!,
-                      child: Container(
-                        color: Colors.grey[300]!,
-                        child: const Text("AWB-123456"),
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      'assets/icons/arrow-back.svg',
-                      width: 24.w,
-                      height: 24.h,
-                      color: Colors.transparent,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
+                SizedBox(height: 30.h),
                 Container(
                   padding: EdgeInsets.all(8.w),
                   decoration: BoxDecoration(

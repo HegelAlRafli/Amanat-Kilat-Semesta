@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/theme/color_value.dart';
-import '../../../core/widgets/formats/rupiah_format.dart';
-import '../model/postage_model.dart';
+import '../../../core/widgets/loading/shimmer_widget.dart';
 
-class TablePostageWidget extends StatelessWidget {
-  const TablePostageWidget({super.key, required this.model});
-
-  final PostageModel model;
+class LoadingTablePostageWidget extends StatelessWidget {
+  const LoadingTablePostageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,24 +38,24 @@ class TablePostageWidget extends StatelessWidget {
                 label: Text('Kategori')),
             DataColumn(
                 label: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Tarif',
-                    style: textTheme.bodyLarge?.copyWith(color: Colors.white),
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Tarif',
+                        style: textTheme.bodyLarge?.copyWith(color: Colors.white),
+                      ),
+                      TextSpan(
+                        text: '(/Kg)',
+                        style: textTheme.bodyLarge?.copyWith(color: Colors.white, fontSize: 8.sp),
+                      ),
+                    ],
                   ),
-                  TextSpan(
-                    text: '(/Kg)',
-                    style: textTheme.bodyLarge?.copyWith(color: Colors.white, fontSize: 8.sp),
-                  ),
-                ],
-              ),
-            )),
+                )),
             const DataColumn(label: Text('Estimasi')),
           ],
 
           // Data Column Table
-          rows: List.generate(model.rate.length, (index) {
+          rows: List.generate(3, (index) {
             Color rowColor = index.isEven ? Colors.white : ColorValue.backgroundColor;
             return DataRow(
               color: MaterialStateColor.resolveWith(
@@ -70,21 +67,12 @@ class TablePostageWidget extends StatelessWidget {
                 },
               ),
               cells: [
-                DataCell(SizedBox(
-                  width: 120.w,
-                  child:  Text(model.rate[index].servicesType.name, textAlign: TextAlign.left),
-                )),
-                DataCell(Padding(
-                  padding: EdgeInsets.symmetric(vertical: 13.h),
-                  child: SizedBox(
-                    width: 80.w,
-                    child:  Text(CurrencyFormat.convertToIdr(model.rate[index].price), textAlign: TextAlign.left),
-                  ),
-                )),
-                DataCell(SizedBox(
-                  width: 75.w,
-                  child:  Text(model.rate[index].estimate, textAlign: TextAlign.left),
-                )),
+                DataCell(ShimmerWidget(width: 120.sp, height: 15.sp, radius: 5.r)),
+                DataCell(
+                    Padding(
+                    padding: EdgeInsets.symmetric(vertical: 13.h),
+                    child: ShimmerWidget(width: 80.sp, height: 15.sp, radius: 5.r))),
+                DataCell(ShimmerWidget(width: 75.sp, height: 15.sp, radius: 5.r)),
               ],
             );
           }),

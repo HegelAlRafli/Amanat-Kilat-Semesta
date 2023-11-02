@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/theme/color_value.dart';
 import '../../../core/widgets/custom_appbar/custom_appbar_widget.dart';
+import '../../../core/widgets/loading/loading_widget.dart';
 import '../../../core/widgets/scroll/scroll_behavior.dart';
-import '../widgets/custom_table_widget.dart';
+import '../model/rate_model.dart';
+
+import 'package:http/http.dart' as http;
+
+import '../widgets/drop_down_widget.dart';
 
 class CheckPostagePage extends StatefulWidget {
   const CheckPostagePage({super.key});
@@ -14,163 +20,59 @@ class CheckPostagePage extends StatefulWidget {
 }
 
 class _CheckPostagePageState extends State<CheckPostagePage> {
-  bool isVisible = false;
+  List listDestinationLocations = [];
 
-  String? selectedOriginLocation;
-  List<String> listOriginLocations = [
-    "Semarang",
-    "Surakarta (Solo)",
-    "Yogyakarta",
-    "Magelang",
-    "Pekalongan",
-    "Tegal",
-    "Purwokerto",
-    "Purworejo",
-    "Kendal",
-    "Kebumen"
-  ];
+  List listOriginLocations = [];
 
-  String? selectedDestinationLocation;
-  List<String> listDestinationLocations = [
-    "Semarang",
-    "Surakarta (Solo)",
-    "Yogyakarta",
-    "Magelang",
-    "Pekalongan",
-    "Tegal",
-    "Purwokerto",
-    "Purworejo",
-    "Kendal",
-    "Kebumen"
-  ];
+  Future<RateModel> _getLocation() async {
+    final response = await http.get(Uri.parse(
+        'https://sistem.amanatkilatsemesta.com/api/rate')); // Ganti URL dengan API yang sesuai.
+
+    if (response.statusCode == 200) {
+      RateModel model = RateModel.fromJson(json.decode(response.body));
+      listOriginLocations = model.from.map((e) => e.name).toList();
+      listDestinationLocations = model.to.map((e) => e.name).toList();
+
+      return model;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
         appBar: customAppbarWidget(context, 'Cek Ongkir'),
-        body: ScrollConfiguration(
-          behavior: NoOverScrollEffectBehavior(),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 24.h),
-                  Text('Asal Pengiriman',
-                      style: textTheme.bodyLarge?.copyWith(color: Colors.black)),
-                  SizedBox(height: 8.h),
-                  DropdownButtonFormField(
-                    isDense: true,
-                    isExpanded: true,
-                    borderRadius: BorderRadius.circular(7.5.r),
-                    icon: const Icon(Icons.arrow_drop_down_rounded, color: ColorValue.greyColor),
-                    iconSize: 24.w,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.w, color: ColorValue.borderColor),
-                        borderRadius: BorderRadius.circular(7.5.r),
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.w, color: ColorValue.borderColor),
-                        borderRadius: BorderRadius.circular(7.5.r),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.w, color: ColorValue.borderColor),
-                        borderRadius: BorderRadius.circular(7.5.r),
-                      ),
-                    ),
-                    style: textTheme.bodyLarge?.copyWith(
-                        color: ColorValue.secondaryGreyColor,
-                        fontWeight: FontWeight.w400),
-                    hint: Text(selectedOriginLocation ?? 'Pilih Lokasi'),
-                    value: selectedOriginLocation,
-                    onChanged: (newValue) {
-                      setState(() {
-                        selectedOriginLocation = newValue;
-                      });
-                    },
-                    items: listOriginLocations.map((location) {
-                      return DropdownMenuItem(
-                        value: location,
-                        child: Text(location),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 16.h),
-                  Text('Tujuan Pengiriman',
-                      style: textTheme.bodyLarge?.copyWith(color: Colors.black)),
-                  SizedBox(height: 8.h),
-                  DropdownButtonFormField(
-                    isDense: true,
-                    isExpanded: true,
-                    borderRadius: BorderRadius.circular(7.5.r),
-                    icon: const Icon(Icons.arrow_drop_down_rounded, color: ColorValue.greyColor),
-                    iconSize: 24.w,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.w, color: ColorValue.borderColor),
-                        borderRadius: BorderRadius.circular(7.5.r),
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.w, color: ColorValue.borderColor),
-                        borderRadius: BorderRadius.circular(7.5.r),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.w, color: ColorValue.borderColor),
-                        borderRadius: BorderRadius.circular(7.5.r),
-                      ),
-                    ),
-                    style: textTheme.bodyLarge?.copyWith(
-                        color: ColorValue.secondaryGreyColor,
-                        fontWeight: FontWeight.w400),
-                    hint: Text(selectedDestinationLocation ?? 'Pilih Lokasi'),
-                    value: selectedDestinationLocation,
-                    onChanged: (newValue) {
-                      setState(() {
-                        selectedDestinationLocation = newValue;
-                      });
-                    },
-                    items: listDestinationLocations.map((location) {
-                      return DropdownMenuItem(
-                        value: location,
-                        child: Text(location),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 24.h),
-                  ElevatedButton(
-                    onPressed: (selectedOriginLocation != null && selectedDestinationLocation != null)
-                        ? () {
-                            setState(() {
-                              isVisible = true;
-                            });
-                          }
-                        : null,
-                    child: const Text('Cek Ongkir'),
-                  ),
-                  SizedBox(height: 24.h),
-                  Visibility(
-                    visible: isVisible,
+        body: FutureBuilder<RateModel>(
+          future: _getLocation(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Center(child: Text('Tidak ada koneksi internet'));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const LoadingWidget(
+                isOnePage: true,
+              );
+            } else {
+              return ScrollConfiguration(
+                behavior: NoOverScrollEffectBehavior(),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                            'Ongkos Kirim dari $selectedOriginLocation Ke $selectedDestinationLocation :',
-                            style: textTheme.bodyLarge?.copyWith(color: Colors.black)),
-                        SizedBox(height: 16.h),
-                        const TablePostageWidget(),
-                        SizedBox(height: 40.h),
+                        DropDownWidget(
+                            listDestinationLocations: listDestinationLocations,
+                            listOriginLocations: listOriginLocations,
+                            data: snapshot.data!),
                       ],
                     ),
-                  )
-                ],
-              ),
-            ),
-          ),
+                  ),
+                ),
+              );
+            }
+          },
         ));
   }
 }
